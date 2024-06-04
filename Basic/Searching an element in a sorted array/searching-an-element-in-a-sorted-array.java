@@ -41,20 +41,9 @@ class Solution{
     {
         
         // Your code here
-        int low = 0;
-        int high = N-1;
-        while(low<=high){
-            int mid = (low+(high-low)/2);
-            
-            if(arr[mid]==k){
+        for(int i=0;i<N;i++){
+            if(arr[i]==k){
                 return 1;
-                
-            }
-            else if(arr[mid]<k){
-                low = mid+1;
-            }
-            else{
-                high= mid-1;
             }
         }
         
