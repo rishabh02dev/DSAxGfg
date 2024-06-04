@@ -57,19 +57,24 @@ class Solution
     public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m)
     {
         // add your code here
-        HashSet<Integer> union = new HashSet<>();
+        HashSet<Integer> st = new HashSet<>();
+        
+        //Ab hm log arr1 aur arr2 se uthakar set mai dal dengee
         for(int i=0;i<n;i++){
-            if(!union.contains(arr1[i])){
-                union.add(arr1[i]);
-            }
+            st.add(arr1[i]);
         }
-        for(int j=0;j<m;j++){
-            if(!union.contains(arr2[j])){
-                union.add(arr2[j]);
-            }
+        for(int i=0; i<m;i++){
+            st.add(arr2[i]);
         }
-        ArrayList<Integer> list = new ArrayList<>(union); 
-        Collections.sort(list);
-        return list;
+        
+        ArrayList<Integer> list1 = new ArrayList<>();
+        for(int it: st){
+            list1.add(it);
+        }
+        
+        Collections.sort(list1);
+        
+        
+        return list1;
     }
 }
