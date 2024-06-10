@@ -31,20 +31,18 @@ import java.util.*;
 class Solution {
     int binarysearch(int arr[], int n, int k) {
         // code here
-        int low = 0;
-        int high = n-1;
+        int low = 0, high = n-1;
         int ans = -1;
         while(low<=high){
-            int mid = (low+(high-low)/2);
+            int mid = (low+ (high-low)/2);
             if(arr[mid]==k){
                 ans = mid;
                 break;
             }
-            else if(arr[mid]<k){
-                low = mid+1;
-            }
-            else{
+            else if(arr[mid]>k){
                 high = mid-1;
+            }else{
+                low = mid+1;
             }
         }
         
