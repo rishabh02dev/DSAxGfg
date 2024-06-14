@@ -1,11 +1,11 @@
 //{ Driver Code Starts
-//Initial Template for Java
-import java.util.*;
+// Initial Template for Java
 import java.io.*;
+import java.util.*;
+
 class GFG {
     public static void main(String args[]) throws IOException {
-        BufferedReader read =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(read.readLine());
         while (t-- > 0) {
             int n = Integer.parseInt(read.readLine());
@@ -18,9 +18,9 @@ class GFG {
 // } Driver Code Ends
 
 
-//User function Template for Java
+// User function Template for Java
 class Solution {
-    static String armstrongNumber(int n){
+    static String armstrongNumber(int n) {
         // code here
         int sum = 0;
         int lastdigit = 0;
@@ -32,10 +32,11 @@ class Solution {
         }
         
         if(sum==original){
-            return "Yes";
+            return "true";
         }
         else{
-            return "No";
+            return "false";
         }
+       
     }
 }
