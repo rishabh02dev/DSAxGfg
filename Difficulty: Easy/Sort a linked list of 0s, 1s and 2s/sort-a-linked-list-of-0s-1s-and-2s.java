@@ -69,41 +69,41 @@ class Solution {
     // Function to sort a linked list of 0s, 1s and 2s.
     static Node segregate(Node head) {
         // add your code here
-        int cnt0 = 0;
-        int cnt1 = 0;
-        int cnt2 = 0;
+        
+        if(head==null || head.next==null){
+            return head;
+        }
+        Node zerohead = new Node(-1);
+        Node onehead = new Node(-1);
+        Node twohead = new Node(-1);
+        
+        Node zero = zerohead;
+        Node one = onehead;
+        Node two = twohead;
         
         Node temp = head;
         while(temp!=null){
             if(temp.data==0){
-                cnt0++;
+                zero.next = temp;
+                zero = temp;
             }
             else if(temp.data==1){
-                cnt1++;
+                one.next = temp;
+                one = temp;
             }
             else{
-                cnt2++;
+                two.next = temp;
+                two = temp;
             }
             temp = temp.next;
         }
         
-        temp = head;
-        while(temp!=null){
-            if(cnt0>0){
-                temp.data = 0;
-                cnt0--;
-            }
-            else if(cnt1>0){
-                temp.data = 1;
-                cnt1--;
-            }
-            else{
-                temp.data = 2;
-                cnt2--;
-            }
-            temp = temp.next;
-        }
-        
-        return head;
+         // Connect the three sub-lists
+        zero.next = (onehead.next != null) ? onehead.next : twohead.next;
+        one.next = twohead.next;
+        two.next = null;
+
+        // The new head of the sorted list
+        return zerohead.next;
     }
 }
