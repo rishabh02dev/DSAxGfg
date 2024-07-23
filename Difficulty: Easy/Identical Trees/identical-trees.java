@@ -135,10 +135,11 @@ class Solution
 	{
 	    // Code Here
 	    if(p==null || q==null){
-	        return p==q;
-	    }
-	    
-	    return (p.data==q.data) && isIdentical(p.left, q.left) && isIdentical(p.right, q.right);
+    return p==q;
+}
+
+return (p.data==q.data) && isIdentical(p.left, q.left) && isIdentical(p.right, q.right);
 	}
 	
 }
+
