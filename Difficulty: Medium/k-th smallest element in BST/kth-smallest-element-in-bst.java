@@ -105,20 +105,23 @@ class GFG {
 class Solution {
     // Return the Kth smallest element in the given BST
     public int KthSmallestElement(Node root, int K) {
-        int[] count = { 0 };
-        return inorder(root, K, count);
+        
+        List<Integer> ls = new ArrayList<>();
+        findInorder(root,ls);
+          if (K > 0 && K <= ls.size()) {
+            return ls.get(K - 1);
+        } else {
+            return -1; 
+        }
     }
     
-    
-    private int inorder(Node root, int K, int[] count) {
-        if (root == null)
-            return -1;
-        int left = inorder(root.left, K, count);
-        if (left != -1)
-            return left;
-        count[0]++;
-        if (count[0] == K)
-            return root.data;
-        return inorder(root.right, K, count);
+    static void findInorder(Node root, List<Integer> ls){
+        if(root==null){
+            return ;
+        }
+        
+        findInorder(root.left, ls);
+        ls.add(root.data);
+        findInorder(root.right, ls);
     }
 }
