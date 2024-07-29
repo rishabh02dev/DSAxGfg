@@ -129,28 +129,18 @@ class Solution
 	public Node inorderSuccessor(Node root,Node x)
          {
           //add code here
-          ArrayList<Node> al = new ArrayList<>();
-          inOrder(root,al);
-          Node ans = null;
-          for(int i=0; i<al.size();i++){
-              if(al.get(i)==x){
-                  if(i+1<al.size()){
-                      ans = al.get(i+1);
-                  }
-                  else{
-                      ans = null;
-                  }
+          Node successor = null;
+          
+          while(root!=null){
+              if(x.data>=root.data){
+                  root  = root.right;
+              }
+              else{
+                  successor = root;
+                  root = root.left;
               }
           }
-          return ans;
-        }
-        
-        static void inOrder(Node root,ArrayList<Node> al){
-            if(root==null){
-                return;
-            }
-            inOrder(root.left,al);
-            al.add(root);
-            inOrder(root.right,al);
+          
+          return successor;
         }
 }
