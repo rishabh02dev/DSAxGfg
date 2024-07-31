@@ -9,11 +9,10 @@ class GFG {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(read.readLine());
         while (t-- > 0) {
-            int n = Integer.parseInt(read.readLine().trim());
             String arr[] = read.readLine().trim().split(" ");
 
             Solution ob = new Solution();
-            System.out.println(ob.longestCommonPrefix(n, arr));
+            System.out.println(ob.longestCommonPrefix(arr));
         }
     }
 }
@@ -23,23 +22,17 @@ class GFG {
 // User function Template for Java
 
 class Solution {
-    String longestCommonPrefix(int n, String arr[]) {
-        if (n == 0) return "-1";
-        
-        // Initialize the prefix with the first string
-        String prefix = arr[0];
-        
-        // Iterate through the array
-        for (int i = 1; i < n; i++) {
-            // Compare the current prefix with the next string
-            while (arr[i].indexOf(prefix) != 0) {
-                // Shorten the prefix by one character
-                prefix = prefix.substring(0, prefix.length() - 1);
-                // If the prefix becomes empty, there is no common prefix
-                if (prefix.isEmpty()) return "-1";
-            }
-        }
-        
-        return prefix;
+    public String longestCommonPrefix(String arr[]) {
+        // code here
+        StringBuilder ans=new StringBuilder();
+        Arrays.sort(arr);
+        String first=arr[0];
+        String last=arr[arr.length-1];
+        for(int i=0;i<Math.min(first.length(),last.length());i++){
+            if(first.charAt(i)!=last.charAt(i)) break;
+            ans.append(first.charAt(i));
+        } 
+        if(ans.length()==0)return "-1";
+        return ans.toString();
     }
 }
