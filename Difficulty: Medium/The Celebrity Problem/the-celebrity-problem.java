@@ -1,80 +1,47 @@
 //{ Driver Code Starts
-//Initial Template for Java
+// Initial Template for Java
 
 import java.io.*;
-import java.util.*; 
+import java.util.*;
 
-class GFG{
-    public static void main(String args[]) throws IOException { 
+class GFG {
+    public static void main(String args[]) throws IOException {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
-        while(t>0)
-        {
+        while (t > 0) {
             int N = sc.nextInt();
             int M[][] = new int[N][N];
-            for(int i=0; i<N; i++)
-            {
-                for(int j=0; j<N; j++)
-                {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
                     M[i][j] = sc.nextInt();
                 }
             }
-            System.out.println(new Solution().celebrity(M,N));
+            System.out.println(new Solution().celebrity(M));
             t--;
         }
-    } 
-} 
+    }
+}
 // } Driver Code Ends
 
 
-//User function Template for Java
+// User function Template for Java
 
-
-class Solution
-{ 
-    // Function to find if there is a celebrity in the party or not.
-    
-    static boolean knows(int M[][], int a, int b) {
-        return M[a][b] == 1;
+class Solution {
+    public int celebrity(int[][] mat) {
+        int n = mat.length, j = 0;
+      // j= 0 , means assuming first person as celebrity
+        for(int i=0;i<n;i++){
+      // if j knows i , means that i might be the celebrity 
+            if(knows(mat, j , i)) j = i;
+        }
+       // j is celebrity only if j does not know i or every other person know j
+        for(int i=0;i<n;i++){
+            if(j != i && (knows(mat, j, i) || !knows(mat, i, j))) return -1;
+        }
+        return j;
     }
-    
-    int celebrity(int M[][], int n) {
-        // Push all people onto the stack.
-        Stack<Integer> st = new Stack<>();
-        for (int i = 0; i < n; i++) {
-            st.push(i);
-        }
-        
-        // Extract top 2 elements and compare them.
-        while (st.size() > 1) {
-            int a = st.pop();
-            int b = st.pop();
-            
-            if (knows(M, a, b)) {
-                st.push(b);
-            } else {
-                st.push(a);
-            }
-        }
-        
-        // The potential candidate.
-        int candidate = st.pop();
-        
-        // Check if the candidate is a celebrity.
-        // Row check: candidate should not know anyone.
-        for (int i = 0; i < n; i++) {
-            if (i != candidate && knows(M, candidate, i)) {
-                return -1;
-            }
-        }
-        
-        // Column check: everyone should know the candidate.
-        for (int i = 0; i < n; i++) {
-            if (i != candidate && !knows(M, i, candidate)) {
-                return -1;
-            }
-        }
-        
-        return candidate;
+   // to check whether a knows b or not
+    private boolean knows(int[][] m, int a, int b){
+        return m[a][b] == 1;
     }
 }
