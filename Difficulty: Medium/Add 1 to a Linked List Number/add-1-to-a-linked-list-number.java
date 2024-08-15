@@ -1,47 +1,43 @@
 //{ Driver Code Starts
 import java.io.*;
 import java.util.*;
-class Node
-{
+
+class Node {
     int data;
     Node next;
-    
-    Node(int x)
-    {
+
+    Node(int x) {
         data = x;
         next = null;
     }
 }
-class GfG
-{
-    public static void printList(Node node) 
-    { 
-        while (node != null)
-        { 
+
+class GfG {
+    public static void printList(Node node) {
+        while (node != null) {
             System.out.print(node.data);
-            node = node.next; 
-        }  
-        System.out.println();
-    } 
-    public static void main(String args[])throws IOException
-        {
-            Scanner sc = new Scanner(System.in);
-            int t = sc.nextInt();
-            while(t-->0)
-                {
-                    String s = sc.next();
-                    Node head = new Node( s.charAt(0) - '0' );
-                    Node tail = head;
-                    for(int i=1; i<s.length(); i++)
-                    {
-                        tail.next = new Node( s.charAt(i) - '0' );
-                        tail = tail.next;
-                    }
-                    Solution obj = new Solution();
-                    head = obj.addOne(head);
-                    printList(head); 
-                }
+            node = node.next;
         }
+        System.out.println();
+    }
+
+    public static void main(String args[]) throws IOException {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while (t-- > 0) {
+            String str[] = read.readLine().trim().split(" ");
+            int n = str.length;
+            Node head = new Node(Integer.parseInt(str[0]));
+            Node tail = head;
+            for (int i = 1; i < n; i++) {
+                tail.next = new Node(Integer.parseInt(str[i]));
+                tail = tail.next;
+            }
+            Solution obj = new Solution();
+            head = obj.addOne(head);
+            printList(head);
+        }
+    }
 }
 // } Driver Code Ends
 
@@ -50,55 +46,47 @@ class GfG
 class Node{
     int data;
     Node next;
-    
+
     Node(int x){
         data = x;
         next = null;
     }
-} 
+}
 */
 
-class Solution
-{
-    
-    
-    static Node reverse(Node head) {
-        Node prev = null;
-        Node current = head;
-        Node next = null;
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+class Solution {
+    public Node reverseLL(Node head){
+        if(head == null || head.next == null)
+            return head;
+        Node prev=null;
+        Node temp=head;
+        while(temp != null){
+            Node nextNode=temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=nextNode;
         }
         return prev;
     }
-    public static Node addOne(Node head) 
-    { 
-        //code here.
-        head = reverse(head);
-
-        Node current = head;
-        int carry = 1;
-
-        // Traverse the reversed list and add one
-        while (current != null) {
-            int sum = current.data + carry;
-            carry = sum / 10;
-            current.data = sum % 10;
-            if (carry == 0) {
-                break;
+    public Node addOne(Node head) {
+        // code here.
+        
+        Node newHead=new Node(1);
+        //Node dummy=newHead;
+        
+        Node reverseHead=reverseLL(head);
+        Node temp=reverseHead;
+        while(temp != null){
+            
+            if(temp.data <= 8){
+                temp.data=temp.data+1;
+                return reverseLL(reverseHead);
             }
-            if (current.next == null && carry != 0) {
-                current.next = new Node(carry);
-                break;
-            }
-            current = current.next;
+            else
+                temp.data=0;
+            temp=temp.next;
         }
-
-        // Reverse the list again to restore the original order
-        head = reverse(head);
-        return head;
+        newHead.next=reverseLL(reverseHead);
+        return newHead;
     }
 }
