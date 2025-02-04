@@ -1,15 +1,16 @@
 //{ Driver Code Starts
 // Initial Template for Java
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.io.*;
 import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Node {
     int data;
     Node left;
     Node right;
+
     Node(int data) {
         this.data = data;
         left = null;
@@ -74,6 +75,7 @@ class GfG {
 
         return root;
     }
+
     static void printInorder(Node root) {
         if (root == null) return;
 
@@ -84,8 +86,7 @@ class GfG {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int t = Integer.parseInt(br.readLine());
 
@@ -95,6 +96,8 @@ class GfG {
             Solution g = new Solution();
             System.out.println(g.diameter(root));
             t--;
+
+            System.out.println("~");
         }
     }
 }
@@ -102,9 +105,8 @@ class GfG {
 // } Driver Code Ends
 
 
-// User function Template for Java
-
-/*class Node {
+/*
+class Node {
     int data;
     Node left;
     Node right;
@@ -113,29 +115,22 @@ class GfG {
         left = null;
         right = null;
     }
-}*/
+}
+*/
 
 class Solution {
-    // Function to return the diameter of a Binary Tree.
-    int diameter(Node root) {
-        // Your code here
-        int diameter[] = new int[1];
+    int fans=0;
+    int depth(Node root)
+    {
+        if(root==null) return 0;
+        int l=depth(root.left);
+        int r=depth(root.right);
         
-        height(root,diameter);
-        
-        return diameter[0];
+        fans=Math.max(fans, l+r);
+        return (1+Math.max(l,r));
     }
-    
-    int height(Node root, int[] diameter){
-        if(root==null){
-            return 0;
-        }
-        
-        int lh = height(root.left, diameter);
-        int rh = height(root.right, diameter);
-        diameter[0] = Math.max(diameter[0], 1+lh+rh);
-        
-        return 1+ Math.max(lh,rh);
-        
+    int diameter(Node root) {
+        depth(root);
+        return fans;
     }
 }
